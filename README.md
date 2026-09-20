@@ -1,7 +1,7 @@
 # 📚 Liana's Library
 
-A personal library management app built with **Streamlit** and **MySQL**, for tracking books, friends, and loans in a small, shared book collection.
-
+**🔗 [Try the live app here](https://anushreebalakrishnan-library-management-app-srcapp-r7megh.streamlit.app/#welcome-to-lianas-library)
+A personal library management app built with **Streamlit** and **MySQL**...
 Instead of losing track of who borrowed what, Liana's Library keeps a simple, interactive record of every book, every friend, and every loan — with built-in safeguards against common mistakes (like deleting a book that's still on loan, or lending past someone's borrowing limit).
 
 ## ✨ Features
