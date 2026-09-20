@@ -37,38 +37,4 @@ Instead of losing track of who borrowed what, Liana's Library keeps a simple, in
 └── environment.yml            # Conda environment definition
 ```
 
-## 🚀 Getting Started
-
-### 1. Clone the repo
-```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
-cd YOUR-REPO-NAME
-```
-
-### 2. Set up the environment
-```bash
-conda env create -f environment.yml
-conda activate lianes-lib-env
-```
-
-### 3. Set up the database
-Run `sample_library1.sql` in your local MySQL instance to create the schema and load sample data:
-```bash
-mysql -u root -p < sample_library1.sql
-```
-
-### 4. Run the app
-```bash
-streamlit run app.py
-```
-
-### 5. Log in
-Enter your local MySQL username and password on the login screen to connect.
-
-## 📸 Screenshots
-
-*(Add a screenshot or two of the app here once it's running!)*
-
-## 📝 Notes
-
-This project was built as part of a data analytics bootcamp capstone, focused on practicing full CRUD application design with a real relational database backend.
+relational database backend.
