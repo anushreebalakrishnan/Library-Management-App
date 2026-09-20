@@ -7,12 +7,16 @@ from create import *
 from delete import *
 from read import *
 from update import *
+from pathlib import Path
+
+APP_DIR = Path(__file__).parent
+IMAGE_PATH = APP_DIR / "booksimage.jpg"
 #from login import login(for login screen)
 
 # ---------- SIDEBAR IMAGE (always visible, even on login screen) ---------------------
 with st.sidebar:
     nav_slot = st.container(key="sidebar_nav")
-    st.image("booksimage.jpg")
+    st.image(str(IMAGE_PATH))
 
 st.markdown(
     """
