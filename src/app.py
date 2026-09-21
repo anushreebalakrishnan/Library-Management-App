@@ -13,7 +13,7 @@ APP_DIR = Path(__file__).parent
 IMAGE_PATH = APP_DIR / "booksimage.jpg"
 #from login import login(for login screen)
 
-# ---------- SIDEBAR IMAGE (always visible, even on login screen) ---------------------
+# ---------- SIDEBAR IMAGE (always visible, even on login screen) -------------------------------------------------------
 with st.sidebar:
     nav_slot = st.container(key="sidebar_nav")
     st.image(str(IMAGE_PATH))
@@ -62,7 +62,7 @@ db.set_engine(st.session_state["engine"])
 db.initialize_database(st.session_state["engine"])
 
 """
-# ---------- DATABASE CONNECTION (automatic, no login screen) ---------------------
+# ---------- DATABASE CONNECTION (automatic, no login screen) ------------------------------------
 connection_string = (
     f"mysql+pymysql://{st.secrets['db_user']}:{st.secrets['db_password']}"
     f"@{st.secrets['db_host']}:{st.secrets['db_port']}/{st.secrets['db_schema']}"
@@ -70,13 +70,13 @@ connection_string = (
 engine = create_engine(connection_string)
 db.set_engine(engine)
 db.initialize_database(engine)
-# ---------- SIDEBAR NAV (what do u want to manage) ---------------------
+# ---------- SIDEBAR NAV (what do u want to manage) --------------------------------------------------
 with nav_slot:
     section = st.radio("What do you want to manage?", options=["Friends", "Books", "Loans"],index=None)
 
 if section is not None:
 
-    # ---------- QUICK STATS ---------------------
+    # ---------- QUICK STATS ------------------------------------------------------------------------
     available = count_available_books()
     total = count_total_books()
 
@@ -101,18 +101,20 @@ if section is not None:
             st.dataframe(friends_df, hide_index=True)
 
         if action == "Add Friend":
-            friend_name = st.text_input("Name:")
-            max_loans = st.number_input("Insert Max Loans: ", value=2, min_value=1, max_value=5, placeholder="Type a number...")
-            notes = st.text_area('Notes: ')
+            with st.form("add_friend_form", clear_on_submit=True):
+                friend_name = st.text_input("Name:")
+                max_loans = st.number_input("Insert Max Loans: ", value=2, min_value=1, max_value=5, placeholder="Type a number...")
+                notes = st.text_area('Notes: ')
+                submitted = st.form_submit_button("Submit")
 
-            if st.button("Submit"):
+            if submitted:
                 result = create_friend(friend_name, max_loans, notes)
                 if result.startswith("Can't"):
                     st.warning(result)
                 else:
                     st.success(result)
                     st.balloons()
-                    st.rerun()
+                    st.rerun()         
 
         if action == "Edit Friend":
             friends_df = read_friends()
@@ -159,9 +161,9 @@ if section is not None:
                         del st.session_state["confirm_delete_friend"]
                         st.rerun()
 
-# ====================================================================================================
+# ===========================================================================================================================
                                         # BOOKS
-# ====================================================================================================
+# ==========================================================================================================================
     if section == "Books":
         action = st.radio("Selection:", options=["View Books",
                                         "Add Book",
@@ -174,13 +176,16 @@ if section is not None:
             st.dataframe(books_df, hide_index=True)
             st.write(f"📚 {count_available_books()} books currently available")
 
-        if action == "Add Book":
-            title = st.text_input("Title:")
-            isbn = st.text_input("ISBN:")
-            author = st.text_input("Author:")
-            genre = st.text_input("Genre:")
 
-            if st.button("Submit"):
+        if action == "Add Book":
+            with st.form("add_book_form", clear_on_submit=True):
+                title = st.text_input("Title:")
+                isbn = st.text_input("ISBN:")
+                author = st.text_input("Author:")
+                genre = st.text_input("Genre:")
+                submitted = st.form_submit_button("Submit")
+
+            if submitted:
                 result = create_book(title, isbn, author, genre)
                 if result.startswith("Can't"):
                     st.warning(result)
@@ -236,9 +241,9 @@ if section is not None:
                         del st.session_state["confirm_delete_book"]
                         st.rerun()
 
-    # ====================================================
-                                        # LOANS
-    # ====================================================
+    # ================================================================================================================
+                                                            # LOANS
+    # ================================================================================================================
     if section == "Loans":
         action = st.radio("Selection:", options=["View loans",
                                         "Add loan",
